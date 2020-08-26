@@ -1,8 +1,28 @@
-game_board=['_']* 9
+#game_board=['_']* 9
+choices=[]
+for pos in range(0,9):
+    choices.append(str(pos+1))
+    
 while True:
-    pos=input("Enter any position you want from(0-8): \n") #Take input from the user as a position from 0 to 8 and store it in the pos variable
-    pos=int(pos)
-    game_board[pos]='X'
-    print(game_board[0]+ '|'+ game_board[1]+ '|'+ game_board[2])
-    print(game_board[3]+ '|'+ game_board[4]+ '|'+ game_board[5])
-    print(game_board[6]+ '|'+ game_board[7]+ '|'+ game_board[8])
+
+    print("\n")
+    print(choices[0]+ '|'+ choices[1]+ '|'+ choices[2])
+    print("----------")
+    print(choices[3]+ '|'+ choices[4]+ '|'+ choices[5])
+    print("----------") 
+    print(choices[6]+ '|'+ choices[7]+ '|'+ choices[8])
+
+    try:
+        choice=int(input("> ").strip())
+    except:
+        print("Please enter only valid fields from board (0-8)")
+        continue
+
+
+
+    
+
+    
+    
+
+    
