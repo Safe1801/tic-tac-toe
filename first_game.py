@@ -5,9 +5,18 @@ for pos in range(0,9):
 
 is_Current_One=True # Default player will be X    
 
-while True:
+won=False
+print(choices)
+while not won:
+    # main loop, infinite amount of times.
+    for pos_x in range(0,3):
+        pos_y = pos_x * 3
 
-# main loop, infinite amount of times.
+        # row condition
+
+        if (choices[pos_y] == choices[(pos_y + 1)]) and (choices[pos_y] == choices[(pos_y + 2)]):
+            won=True # main loop will break
+
 
     print("\n")
     print('|' + choices[0]+ '|'+ choices[1]+ '|'+ choices[2])
