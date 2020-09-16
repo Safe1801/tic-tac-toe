@@ -9,13 +9,8 @@ won=False
 print(choices)
 while not won:
     # main loop, infinite amount of times.
-    for pos_x in range(0,3):
-        pos_y = pos_x * 3
+    
 
-        # row condition
-
-        if (choices[pos_y] == choices[(pos_y + 1)]) and (choices[pos_y] == choices[(pos_y + 2)]):
-            won=True # main loop will break
 
 
     print("\n")
@@ -34,7 +29,7 @@ while not won:
     try:
         choice=int(input("> ").strip())
 
-    except:
+    except ValueError:
         print("Please enter only valid fields from board (0-8)")
         continue
 
@@ -45,14 +40,34 @@ while not won:
     # to accommodate this list variable called "choices"
     
     if is_Current_One:
-        choices[choice-1]='X' 
+        try:
+            choices[choice - 1]='X' 
+        except IndexError:
+            print("Please enter only valid fields from board(0-8)")
     else:
-        choices[choice-1]='0'
+        try:
+            choices[choice - 1]='O'
+        except IndexError:
+            print("Please enter only valid fields from board(0-8)")
 
-    is_Current_One= not is_Current_One
-    
+    # Toggle between Player 1 and Player 2 with the help of Boolean
+    is_Current_One = not is_Current_One
 
+    for pos_x in range(0,3):
+        pos_y = pos_x * 3
+
+        if (choices[pos_y] == choices[(pos_y + 1)]) and (choices[pos_y] == choices[(pos_y + 2)]):
+            won=True # main loop will break
+
+        # column condition
+
+        if (choices[pos_x] == choices[(pos_x + 3)]) and (choices[pos_x] == choices[(pos_x +6)]):
+            won=True #main loop will break
+    if ((choices[0]==choices[4]) and (choices[0] == choices[(8)]) or (choices[2] == choices[4]) and (choices[2]==choices[6])):
+        won=True # main loop will break
     
+    
+print("Player " + str(int(is_Current_One + 1 )) + " won, Congratulations!")    
     
 
     
