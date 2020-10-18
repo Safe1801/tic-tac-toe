@@ -69,5 +69,15 @@ while not won:
     
 print("Player " + str(int(is_Current_One + 1 )) + " won, Congratulations!")    
     
+"""
+is_Current_One=True
 
-    
+>>> int(is_Current_One)
+
+1
+
+>>> str(int(is_Current_One))
+
+'1'
+
+"""
