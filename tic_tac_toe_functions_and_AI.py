@@ -81,7 +81,15 @@ def makeComputerMove(board, computerPlayer):
 
             if isWinner(clone,humanPlayer):
                 return pos    
-        
+
+    # Occupy Corner positions    
+
+    move = getRandomMove(board, [1,3,7,9])
+    if move is not None:
+        return move
+
+    # Occupy the Center position           
+
     if isSpaceAvailable(board,5):    
         return 5  
 
@@ -95,3 +103,16 @@ def makeComputerMove(board, computerPlayer):
         return random.choice(availableMoves)
     else:
         return None        
+
+
+
+
+
+
+
+
+
+
+
+
+
