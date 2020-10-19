@@ -3,21 +3,19 @@ import random
 
 def printBoard(board):
     print('   |   |')
-    print('' + board[7] +'   | ' + board[8] + '  |' + board[9])
+    print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
     print('   |   |')
     print('----------')
     print('   |   |')
-    print('  ' + board[4] + ' | ' + board[5] + '  | ' + board[6])
+    print(' ' + board[4] + ' | ' + board[5] + ' | ' + board[6])
     print('   |   |')
     print('----------')
     print('   |   |')
-    print('  ' + board[1] + ' | ' + board[2] + '  | ' + board[3])
+    print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
     print('   |   |')
 
-board=['']*10
-printBoard(board)
 
-def isWinner(board,current_player):
+def isWinner(board, current_player):
     return ((board[7] == current_player and board[8] == current_player
              and board[9] == current_player)
             or (board[4] == current_player and board[5] == current_player
@@ -44,18 +42,34 @@ def boardCopy(board):
     cloneBoard=[]
     for pos in board:
         cloneBoard.append(pos)
+
     return cloneBoard   
 
     
 def isSpaceAvailable(board, move):
-    return board[move] ==''
+    return board[move] == ' '
+
+
+def getRandomMove(board,moves):
+
+    availableMoves = []
+    for move in moves:
+
+        if isSpaceAvailable(board,move):
+            availableMoves.append(move)
+
+    if availableMoves.__len__() !=0:
+        return random.choice(availableMoves)
+
+    else:
+        return None        
 
 
 
 def makeComputerMove(board, computerPlayer):
        
-    if computerPlayer=='X':
-        humanPlayer='O'
+    if computerPlayer == 'X':
+        humanPlayer = 'O'
 
     else:
         humanPlayer='X'
@@ -82,36 +96,67 @@ def makeComputerMove(board, computerPlayer):
             if isWinner(clone,humanPlayer):
                 return pos    
 
+    
+    # Occupy the Center position           
+
+    if isSpaceAvailable(board,5):    
+        return 5  
+
+    
     # Occupy Corner positions    
 
     move = getRandomMove(board, [1,3,7,9])
     if move is not None:
         return move
 
-    # Occupy the Center position           
+    # Occupy the rest 
 
-    if isSpaceAvailable(board,5):    
-        return 5  
-
- def getRandomMove(board,moves):
-    availableMoves = []
-    for move in moves:
-        if isSpaceAvailable(board,move):
-            availableMoves.append(move)
-
-    if availableMoves.__len__() !=0:
-        return random.choice(availableMoves)
-    else:
-        return None        
+    return getRandomMove(board, [2,4,6,8])
 
 
+def makePlayerMove(board):
+    move = ' '
+    while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceAvailable(board, int(move)):
+        print('What is your next move? (choose between 1-9)')
+        move=int(input("#nr  ").strip())
+        print('\n')
+        return move
+
+
+def main():
+    while True:
+        board= [' '] * 10
+        player, computer = 'X', 'O'
+        turn = "human"
+        print("The "+ turn+ " will start the game")
+        isGameRunning=True
+
+        while isGameRunning:
+            if turn == "human":
+                printBoard(board)
+                move=makePlayerMove(board)
+                makeMove(board,player,move)
+                if isWinner(board,player):
+                    printBoard(board)
+                    print("You won the game!")
+                    isGameRunning=False
+                else:
+                    # turn human # Computers turn
+                    turn = "computer"
+                                 
+            else:
+                move = makeComputerMove(board, computer)
+                makeMove(board, computer, move)
+                if isWinner(board, computer):
+                    printBoard(board)
+                    print('You loose!')
+                    isGameRunning=False
+                else:
+                    turn= "human"
 
 
 
-
-
-
-
+main()
 
 
 
