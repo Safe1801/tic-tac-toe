@@ -115,6 +115,7 @@ def makeComputerMove(board, computerPlayer):
 
 
 def makePlayerMove(board):
+
     move = ' '
     while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceAvailable(board, int(move)):
         print('What is your next move? (choose between 1-9)')
@@ -124,7 +125,15 @@ def makePlayerMove(board):
 
 
 def main():
+
     while True:
+        def isBoardOccupied(board):
+
+            for pos in range(1,10):
+                if isSpaceAvailable(board,pos):
+                    return False
+            return True
+
         board= [' '] * 10
         player, computer = 'X', 'O'
         turn = "human"
@@ -132,6 +141,7 @@ def main():
         isGameRunning=True
 
         while isGameRunning:
+
             if turn == "human":
                 printBoard(board)
                 move=makePlayerMove(board)
@@ -140,9 +150,13 @@ def main():
                     printBoard(board)
                     print("You won the game!")
                     isGameRunning=False
-                else:
-                    # turn human # Computers turn
-                    turn = "computer"
+                else:   
+                    if isBoardOccupied(board):
+                        print("Game is a tie")
+                        break
+                    else:
+                        # turn human # Computers turn
+                        turn = "computer"
                                  
             else:
                 move = makeComputerMove(board, computer)
@@ -152,7 +166,13 @@ def main():
                     print('You loose!')
                     isGameRunning=False
                 else:
-                    turn= "human"
+
+                    if isBoardOccupied(board):
+                        print("Game is a tie")
+                        break
+                    else:
+                        # turn human # Computers turn
+                        turn = "human"
 
 
 
